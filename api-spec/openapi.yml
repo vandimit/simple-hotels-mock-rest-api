@@ -1,0 +1,279 @@
+openapi: 3.0.3
+info:
+  title: Hotels API
+  description: API for searching and retrieving hotel information
+  version: 1.0.0
+servers:
+  - url: /api
+    description: API base path
+paths:
+  /hotels:
+    get:
+      summary: Search for hotels
+      description: Returns a list of hotels based on search criteria
+      operationId: searchHotels
+      tags:
+        - hotels
+      parameters:
+        - name: name
+          in: query
+          description: Filter by hotel name (case insensitive, partial match)
+          required: false
+          schema:
+            type: string
+        - name: city
+          in: query
+          description: Filter by city (case insensitive)
+          required: false
+          schema:
+            type: string
+        - name: countryCode
+          in: query
+          description: Filter by country code (2-letter ISO code)
+          required: false
+          schema:
+            type: string
+            pattern: '^[A-Z]{2}$'
+        - name: minRate
+          in: query
+          description: Minimum rate in the hotel's currency
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+        - name: maxRate
+          in: query
+          description: Maximum rate in the hotel's currency
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 0
+        - name: minRating
+          in: query
+          description: Minimum hotel rating (1-5)
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 1
+            maximum: 5
+        - name: maxRating
+          in: query
+          description: Maximum hotel rating (1-5)
+          required: false
+          schema:
+            type: number
+            format: float
+            minimum: 1
+            maximum: 5
+        - name: amenityMask
+          in: query
+          description: Filter by amenity mask (bitwise AND)
+          required: false
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          description: Maximum number of hotels to return
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            default: 20
+        - name: offset
+          in: query
+          description: Number of hotels to skip for pagination
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotels:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Hotel'
+        '400':
+          description: Bad request due to invalid parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /hotels/{hotelId}:
+    get:
+      summary: Get hotel by ID
+      description: Returns a single hotel by its ID
+      operationId: getHotelById
+      tags:
+        - hotels
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of the hotel to return
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hotel'
+        '404':
+          description: Hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Hotel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: "0248058a-27e4-11e6-ace6-a9876eff01b3"
+        type:
+          type: string
+          enum: [hotel]
+        name:
+          type: string
+          example: "Motif Seattle"
+        created:
+          type: integer
+          format: int64
+          example: 1464777092568
+        modified:
+          type: integer
+          format: int64
+          example: 1464777618676
+        address1:
+          type: string
+          example: "1415 5th Ave"
+        airportCode:
+          type: string
+          example: "SEA"
+        amenityMask:
+          type: integer
+          format: int32
+          example: 7798786
+        city:
+          type: string
+          example: "Seattle"
+        confidenceRating:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 100
+          example: 52
+        countryCode:
+          type: string
+          example: "US"
+        deepLink:
+          type: string
+          format: uri
+          example: "http://www.travelnow.com/templates/55505/hotels/125727/overview"
+        highRate:
+          type: number
+          format: float
+          example: 289
+        hotelId:
+          type: integer
+          format: int32
+          example: 1257278
+        hotelInDestination:
+          type: boolean
+          example: true
+        hotelRating:
+          type: number
+          format: float
+          example: 4
+        location:
+          type: object
+          properties:
+            latitude:
+              type: number
+              format: float
+              example: 47.60985
+            longitude:
+              type: number
+              format: float
+              example: -122.33475
+        locationDescription:
+          type: string
+          example: "Near Pike Place Market"
+        lowRate:
+          type: number
+          format: float
+          example: 259
+        metadata:
+          type: object
+          properties:
+            path:
+              type: string
+              example: "/hotels/0248058a-27e4-11e6-ace6-a9876eff01b3"
+        postalCode:
+          oneOf:
+            - type: integer
+              example: 98101
+            - type: string
+              example: "10110"
+        propertyCategory:
+          type: integer
+          format: int32
+          example: 1
+        proximityDistance:
+          type: number
+          format: float
+          example: 11.168453
+        proximityUnit:
+          type: string
+          example: "MI"
+        rateCurrencyCode:
+          type: string
+          example: "USD"
+        shortDescription:
+          type: string
+          example: "With a stay at Motif Seattle, you will be centrally located in Seattle, steps from 5th Avenue Theater and minutes from Pike Place Market."
+        stateProvinceCode:
+          type: string
+          example: "WA"
+        thumbNailUrl:
+          type: string
+          example: "/thumbnails/50947_264_t.jpg"
+        tripAdvisorRating:
+          type: number
+          format: float
+          example: 3.5
+        tripAdvisorRatingUrl:
+          type: string
+          format: uri
+          example: "http://www.tripadvisor.com/img/cdsi/img2/ratings/traveler/3.5-12345-4.gif"
+      required:
+        - id
+        - name
+        - city
+        - countryCode
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+      required:
+        - code
+        - message

@@ -26,7 +26,7 @@
       "metadata": {
         "path": "/hotels/0248058a-27e4-11e6-ace6-a9876eff01b3"
       },
-      "postalCode": 98101,
+      "postalCode": "98101",
       "propertyCategory": 1,
       "proximityDistance": 11.168453,
       "proximityUnit": "MI",
@@ -63,7 +63,7 @@
       "metadata": {
         "path": "/hotels/024bd61a-27e4-11e6-ad95-35ed01160e57"
       },
-      "postalCode": 98101,
+      "postalCode": "98101",
       "propertyCategory": 1,
       "proximityDistance": 11.335604,
       "proximityUnit": "MI",
@@ -100,7 +100,7 @@
       "metadata": {
         "path": "/hotels/024fcdba-27e4-11e6-af44-cd4c8e537e9c"
       },
-      "postalCode": 98101,
+      "postalCode": "98101",
       "propertyCategory": 1,
       "proximityDistance": 11.115907,
       "proximityUnit": "MI",
@@ -137,7 +137,7 @@
       "metadata": {
         "path": "/hotels/0253773a-27e4-11e6-8ffe-278d3b0d044c"
       },
-      "postalCode": 98121,
+      "postalCode": "98121",
       "propertyCategory": 1,
       "proximityDistance": 11.898841,
       "proximityUnit": "MI",
@@ -174,7 +174,7 @@
       "metadata": {
         "path": "/hotels/025720ba-27e4-11e6-8744-efc6f2251051"
       },
-      "postalCode": 98101,
+      "postalCode": "98101",
       "propertyCategory": 1,
       "proximityDistance": 11.293709,
       "proximityUnit": "MI",
@@ -211,7 +211,7 @@
       "metadata": {
         "path": "/hotels/025b3f6a-27e4-11e6-80d7-1ba3f907ab71"
       },
-      "postalCode": 98101,
+      "postalCode": "98101",
       "propertyCategory": 1,
       "proximityDistance": 11.097676,
       "proximityUnit": "MI",
@@ -248,7 +248,7 @@
       "metadata": {
         "path": "/hotels/025f5e1a-27e4-11e6-a36c-9fede5552112"
       },
-      "postalCode": 98105,
+      "postalCode": "98105",
       "propertyCategory": 1,
       "proximityDistance": 11.145046,
       "proximityUnit": "MI",
@@ -285,7 +285,7 @@
       "metadata": {
         "path": "/hotels/026355c4-27e4-11e6-b3f9-09f86925339f"
       },
-      "postalCode": 98101,
+      "postalCode": "98101",
       "propertyCategory": 1,
       "proximityDistance": 11.09939,
       "proximityUnit": "MI",
@@ -322,7 +322,7 @@
       "metadata": {
         "path": "/hotels/0267c28a-27e4-11e6-ab3b-5f1a4c39ef62"
       },
-      "postalCode": 98121,
+      "postalCode": "98121",
       "propertyCategory": 1,
       "proximityDistance": 11.438348,
       "proximityUnit": "MI",
@@ -359,7 +359,7 @@
       "metadata": {
         "path": "/hotels/026ccbae-27e4-11e6-afa7-536abd83599c"
       },
-      "postalCode": 98109,
+      "postalCode": "98109",
       "propertyCategory": 1,
       "proximityDistance": 12.074359,
       "proximityUnit": "MI",
@@ -396,7 +396,7 @@
       "metadata": {
         "path": "/hotels/026eabcd-27e4-11e6-afc8-536abd83599d"
       },
-      "postalCode": 75002,
+      "postalCode": "75002",
       "propertyCategory": 1,
       "proximityDistance": 1.2,
       "proximityUnit": "MI",
@@ -470,7 +470,7 @@
       "metadata": {
         "path": "/hotels/026jklmn-27e4-11e6-afca-536abd83599f"
       },
-      "postalCode": 2000,
+      "postalCode": "2000",
       "propertyCategory": 1,
       "proximityDistance": 0.5,
       "proximityUnit": "MI",
@@ -507,7 +507,7 @@
       "metadata": {
         "path": "/hotels/026opqrs-27e4-11e6-afcb-536abd83599g"
       },
-      "postalCode": 12345,
+      "postalCode": "12345",
       "propertyCategory": 1,
       "proximityDistance": 0.3,
       "proximityUnit": "MI",
@@ -581,7 +581,7 @@
       "metadata": {
         "path": "/hotels/026yzabc-27e4-11e6-afcd-536abd83599i"
       },
-      "postalCode": 8001,
+      "postalCode": "8001",
       "propertyCategory": 1,
       "proximityDistance": 1.5,
       "proximityUnit": "MI",
@@ -655,7 +655,7 @@
       "metadata": {
         "path": "/hotels/026ijklm-27e4-11e6-afcf-536abd83599k"
       },
-      "postalCode": 1016,
+      "postalCode": "1016",
       "propertyCategory": 1,
       "proximityDistance": 0.4,
       "proximityUnit": "MI",
@@ -692,7 +692,7 @@
       "metadata": {
         "path": "/hotels/026nopqr-27e4-11e6-afd0-536abd83599l"
       },
-      "postalCode": 10117,
+      "postalCode": "10117",
       "propertyCategory": 1,
       "proximityDistance": 0.6,
       "proximityUnit": "MI",
@@ -729,7 +729,7 @@
       "metadata": {
         "path": "/hotels/026stuvw-27e4-11e6-afd1-536abd83599m"
       },
-      "postalCode": 10120,
+      "postalCode": "10120",
       "propertyCategory": 1,
       "proximityDistance": 1.0,
       "proximityUnit": "MI",
