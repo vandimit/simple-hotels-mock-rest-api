@@ -1,6 +1,6 @@
 # Simple hotels mock rest api
 
-A very simple local test rest-api, ideal to make quick front end examples, or to share with students.
+A very simple local test rest-api, ideal to make quick front end examples.
 
 It contains detailed information about ten hotels located in seattle (if you want to add
 more entries to this local api please check the _Contributors welcome_ section).
