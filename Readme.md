@@ -23,21 +23,38 @@ If you are looking for other dumb rest-api's available online, check out:
 
 ## Getting started
 
-If you don't have already installed nodejs you will need to install it, you can download it from this
-url: https://nodejs.org/en/
+### Option 1: Go
 
-Download or clone the repo.
+If you want to run the application directly with Go:
 
-Open the console log and install the needed packages.
-
-```
-npm install
-```
-
-Now you can run the server by running:
+1. Make sure you have Go installed (version 1.19 or later)
+2. Clone this repository
+3. Run the application:
 
 ```
-npm run mock-server
+go run main.go
+```
+
+### Option 2: Docker
+
+If you prefer to use Docker:
+
+1. Make sure you have Docker installed
+2. Clone this repository
+3. Build and run using Docker Compose:
+
+```
+docker-compose up -d
+```
+
+Or you can build and run the Docker container manually:
+
+```
+# Build the Docker image
+docker build -t hotels-mock-api .
+
+# Run the container
+docker run -p 8080:8080 hotels-mock-api
 ```
 
 ## Querying the API
@@ -47,34 +64,32 @@ Just open your web browser, postman or favourite tool, and type the following ur
 - Get the list of hotels available:
 
 ```
-http://localhost:3000/api/hotels
+http://localhost:8080/api/hotels
 ```
 
 - To get the details of a given hotel (last url chunk is the id of the hotel):
 
 ```
-http://localhost:3000/api/hotels/0248058a-27e4-11e6-ace6-a9876eff01b3
+http://localhost:8080/api/hotels/0248058a-27e4-11e6-ace6-a9876eff01b3
 ```
 
-This api support sort, filtering paging... more info: [json-server](https://github.com/typicode/json-server)
-
-- Get hotels having a rating equal to 3
+- Get hotels with filters (supports filtering by name, city, countryCode, minRate, maxRate, minRating, maxRating, amenityMask):
 
 ```
-http://localhost:3000/api/hotels/?hotelRating=3
+http://localhost:8080/api/hotels?city=Seattle&minRating=3
 ```
 
-- Sort list of hotels by name alphabetical order:
+- Get hotels with pagination (supports limit and offset parameters):
 
 ```
-http://localhost:3000/api/hotels/?_sort=name&_order=asc
+http://localhost:8080/api/hotels?limit=5&offset=0
 ```
 
-Load a given image from a given hotel (you can find the hotel picture path in the
-_./mock-data/hotes-data.json_ file in each hotel entry under the entry _thumbNailUrl_).
+- Load thumbnail images from a given hotel (you can find the hotel picture path in the
+_./mock-data/hotels-data.json_ file in each hotel entry under the _thumbNailUrl_ field):
 
 ```
-http://localhost:3000/thumbnails/16950_158_t.jpg
+http://localhost:8080/thumbnails/16950_158_t.jpg
 ```
 
 # Contributors welcome
@@ -92,7 +107,7 @@ _./public/thumbnails_.
 
 Original JSON feed extracted from this [apigee/DevJam](https://github.com/apigee/DevJam/blob/master/Resources/hotels-data.json) Github project.
 
-Mock rest-api based on [json-server](https://github.com/typicode/json-server)
+The API is implemented in Go with the [gorilla/mux](https://github.com/gorilla/mux) router.
 
 # About Basefactor + Lemoncode
 
