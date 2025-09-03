@@ -26,22 +26,33 @@ func Main() {
 		log.Fatalf("Failed to load hotel data: %v", err)
 	}
 
+	// Initialize reservation service
+	reservationService := services.NewReservationService(hotelService)
+
 	// Create handlers
 	hotelHandler := handlers.NewHotelHandler(hotelService)
+	reservationHandler := handlers.NewReservationHandler(reservationService)
 
 	// Create router
 	router := mux.NewRouter()
-	
+
 	// Add middleware
 	router.Use(utils.LoggingMiddleware)
 	router.Use(utils.CORSMiddleware)
 
 	// API routes with prefix
 	apiRouter := router.PathPrefix("/api").Subrouter()
-	
-	// Register routes
+
+	// Register hotel routes
 	apiRouter.HandleFunc("/hotels", hotelHandler.GetHotels).Methods("GET")
 	apiRouter.HandleFunc("/hotels/{hotelId}", hotelHandler.GetHotelByID).Methods("GET")
+
+	// Register reservation routes
+	apiRouter.HandleFunc("/hotels/{hotelId}/reservations", reservationHandler.GetReservations).Methods("GET")
+	apiRouter.HandleFunc("/hotels/{hotelId}/reservations", reservationHandler.CreateReservation).Methods("POST")
+	apiRouter.HandleFunc("/hotels/{hotelId}/reservations/{reservationId}", reservationHandler.GetReservationByID).Methods("GET")
+	apiRouter.HandleFunc("/hotels/{hotelId}/reservations/{reservationId}", reservationHandler.UpdateReservation).Methods("PUT")
+	apiRouter.HandleFunc("/hotels/{hotelId}/reservations/{reservationId}", reservationHandler.DeleteReservation).Methods("DELETE")
 
 	// Set up server
 	srv := &http.Server{

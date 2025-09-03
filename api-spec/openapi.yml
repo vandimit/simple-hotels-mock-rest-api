@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
   title: Hotels API
-  description: API for searching and retrieving hotel information
-  version: 1.0.0
+  description: API for searching and retrieving hotel information and managing reservations
+  version: 1.1.0
 servers:
   - url: /api
     description: API base path
@@ -136,8 +136,273 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /hotels/{hotelId}/reservations:
+    get:
+      summary: Get all reservations for a hotel
+      description: Returns a list of reservations for a specific hotel
+      operationId: getHotelReservations
+      tags:
+        - reservations
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of the hotel to get reservations for
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reservations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Reservation'
+        '404':
+          description: Hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a new reservation for a hotel
+      description: Creates a new reservation for a specific hotel
+      operationId: createHotelReservation
+      tags:
+        - reservations
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of the hotel to create a reservation for
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Reservation details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerName:
+                  type: string
+                  description: Name of the customer making the reservation
+                  example: "John Doe"
+                startDate:
+                  type: string
+                  format: date
+                  description: Start date of the reservation
+                  example: "2025-09-10"
+                endDate:
+                  type: string
+                  format: date
+                  description: End date of the reservation
+                  example: "2025-09-15"
+              required:
+                - customerName
+                - startDate
+                - endDate
+      responses:
+        '201':
+          description: Reservation created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '400':
+          description: Invalid reservation data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /hotels/{hotelId}/reservations/{reservationId}:
+    get:
+      summary: Get a specific reservation by ID
+      description: Returns a reservation for a specific hotel by reservation ID
+      operationId: getHotelReservationById
+      tags:
+        - reservations
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of the hotel
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: reservationId
+          in: path
+          description: ID of the reservation to fetch
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '404':
+          description: Reservation or hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a reservation
+      description: Updates an existing reservation for a specific hotel
+      operationId: updateHotelReservation
+      tags:
+        - reservations
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of the hotel
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: reservationId
+          in: path
+          description: ID of the reservation to update
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Updated reservation details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerName:
+                  type: string
+                  description: Name of the customer making the reservation
+                  example: "Jane Smith"
+                startDate:
+                  type: string
+                  format: date
+                  description: Start date of the reservation
+                  example: "2025-09-12"
+                endDate:
+                  type: string
+                  format: date
+                  description: End date of the reservation
+                  example: "2025-09-17"
+              required:
+                - customerName
+                - startDate
+                - endDate
+      responses:
+        '200':
+          description: Reservation updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '400':
+          description: Invalid reservation data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Reservation or hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a reservation
+      description: Deletes an existing reservation for a specific hotel
+      operationId: deleteHotelReservation
+      tags:
+        - reservations
+      parameters:
+        - name: hotelId
+          in: path
+          description: ID of the hotel
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: reservationId
+          in: path
+          description: ID of the reservation to delete
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '204':
+          description: Reservation deleted successfully
+        '404':
+          description: Reservation or hotel not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 components:
   schemas:
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier for the reservation
+          example: "45b0c09d-3eb1-4f8c-a1c0-3af88e90a0b7"
+        hotelId:
+          type: string
+          format: uuid
+          description: ID of the hotel for which the reservation is made
+          example: "0248058a-27e4-11e6-ace6-a9876eff01b3"
+        customerName:
+          type: string
+          description: Name of the customer making the reservation
+          example: "John Doe"
+        startDate:
+          type: string
+          format: date
+          description: Start date of the reservation (ISO 8601 format)
+          example: "2025-09-10"
+        endDate:
+          type: string
+          format: date
+          description: End date of the reservation (ISO 8601 format)
+          example: "2025-09-15"
+        createdAt:
+          type: string
+          format: date-time
+          description: Date and time when the reservation was created
+          example: "2025-09-03T10:30:00Z"
+        updatedAt:
+          type: string
+          format: date-time
+          description: Date and time when the reservation was last updated
+          example: "2025-09-03T10:30:00Z"
+      required:
+        - hotelId
+        - customerName
+        - startDate
+        - endDate
     Hotel:
       type: object
       properties:
